@@ -3,23 +3,17 @@ import * as S from "./Home.style";
 const Home = () => {
   return (
     <S.Home>
-      <S.BackBoard color={"black"}>
+      <S.Container>
         <S.Title>Jigeon Park</S.Title>
-      </S.BackBoard>
+      </S.Container>
 
-      <S.BackBoard color={"white"}>
-        <div>
-          <S.IntroduceTxt color={"black"}>
-            A Junior
-            <br />
-            Front-end Developer
-          </S.IntroduceTxt>
-          <S.MainText>
-            A passionate junior developer focussing on creating and maximising
-            efficiency.
-          </S.MainText>
-        </div>
-      </S.BackBoard>
+      <S.Container>
+        <S.Title>A Junior Developer</S.Title>
+        <S.IntroduceText>
+          A passionate junior developer focussing on creating and maximising
+          efficiency.
+        </S.IntroduceText>
+      </S.Container>
     </S.Home>
   );
 };

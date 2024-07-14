@@ -1,6 +1,6 @@
 import { keyframes } from "styled-components";
 
-export const LeftToRight = keyframes`
+export const FromtLeftToZero = keyframes`
   from {
     transform: translateX(-100%);
   }
@@ -10,7 +10,7 @@ export const LeftToRight = keyframes`
   }
 `;
 
-export const RightToLeft = keyframes`
+export const FromRightToZero = keyframes`
   from {
     transform: translateX(100%);
   }
@@ -20,7 +20,7 @@ export const RightToLeft = keyframes`
   }
 `;
 
-export const TopToZero = keyframes`
+export const FromTopToZero = keyframes`
   from {
     transform: translateY(-100%);
   }
@@ -30,7 +30,7 @@ export const TopToZero = keyframes`
   }
 `;
 
-export const BottomToZero = keyframes`
+export const FromBottomToZero = keyframes`
   from {
     transform: translateY(100%);
   }
@@ -40,7 +40,7 @@ export const BottomToZero = keyframes`
   }
 `;
 
-export const opacity0to1 = keyframes`
+export const opacity0To1 = keyframes`
   from {
     opacity: 0;
   }

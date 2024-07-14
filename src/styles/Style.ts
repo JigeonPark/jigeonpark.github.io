@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { opacity0to1 } from "./Animation";
+import { opacity0To1 } from "./Animation";
 
 const customMediaQuery = (maxWidth: number): string =>
   `@media (max-width: ${maxWidth}px)`;
@@ -11,7 +11,52 @@ export const media = {
   mobile: customMediaQuery(576),
 };
 
-export const GolbalSubTitle = styled.p<{ color?: String }>`
+//Light, dark mode
+const prefersColorSchemeForm = (lightStyles: string, darkStyles: string) => `
+  @media (prefers-color-scheme: light) {
+    ${lightStyles}
+  }
+  @media (prefers-color-scheme: dark) {
+    ${darkStyles}
+  }
+`;
+
+export const prefersColorScheme = {
+  custom: prefersColorSchemeForm,
+  background: prefersColorSchemeForm(
+    "background-color: var(--white);",
+    "background-color: var(--black);"
+  ),
+  oppositeBackground: prefersColorSchemeForm(
+    "background-color: var(--black);",
+    "background-color: var(--white);"
+  ),
+  color: prefersColorSchemeForm("color: var(--black);", "color: var(--white);"),
+  oppositeColor: prefersColorSchemeForm(
+    "color: var(--white);",
+    "color: var(--black);"
+  ),
+};
+
+//Font
+export const GolbalTitle = styled.h1`
+  font-size: 64px;
+  letter-spacing: 2px;
+  font-weight: bold;
+  min-height: 81px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  ${media.mobile} {
+    max-width: 175px;
+    line-height: 120%;
+    font-size: 33px;
+  }
+`;
+
+export const GolbalSubTitle = styled.h2`
   font-size: 32px;
   letter-spacing: 2px;
   font-weight: bold;
@@ -21,40 +66,24 @@ export const GolbalSubTitle = styled.p<{ color?: String }>`
   align-items: center;
   justify-content: center;
 
-  color: ${(props) => (props.color === "black" ? "#1e1e1e" : "#fff")};
-
   ${media.mobile} {
-    font-size: 16px;
+    font-size: 25px;
     letter-spacing: 1px;
     min-height: 45px;
-    /* min-height: 41px; */
+    max-width: 175px;
   }
 `;
 
-export const GolbalTitle = styled(GolbalSubTitle)<{ color?: String }>`
-  font-size: 64px;
-  background-color: ${(props) =>
-    props.color === "black" ? "#1e1e1e" : "#fff"};
-  text-shadow: 0px 8px 4px rgba(0, 0, 0, 0.25);
-  color: transparent;
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  background-clip: text;
-
-  ${media.mobile} {
-    font-size: 45px;
-  }
-`;
-
-export const GolbalMainText = styled.p`
+export const GolbalTextTitle = styled.h4`
   font-size: 20px;
   font-weight: bold;
   letter-spacing: 1px;
 
   ${media.mobile} {
-    font-size: 12px;
-    line-height: 17px;
+    font-size: 20px;
+    line-height: 21px;
     letter-spacing: 0.5px;
+    max-width: 175px;
   }
 `;
 
@@ -65,18 +94,25 @@ export const GolbalText = styled.p`
   letter-spacing: 1px;
 
   ${media.mobile} {
-    font-size: 9px;
-    line-height: 17px;
+    font-size: 14px;
+    line-height: 15px;
     letter-spacing: 0.5px;
+    max-width: 175px;
   }
 `;
 
 export const Line = styled.hr<{
-  color?: String;
   vertical: String;
   time?: String;
 }>`
-  border: 1px solid ${(props) => (props.color === "black" ? "#1e1e1e" : "#fff")};
+  @media (prefers-color-scheme: light) {
+    border: 1px solid --black;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid --white;
+  }
+
   width: ${(props) => (props.vertical === "true" ? "1px" : "1000px")};
   height: ${(props) => (props.vertical === "true" ? "100%" : "1px")};
 
@@ -86,7 +122,7 @@ export const Line = styled.hr<{
   }
 
   &#opacity {
-    animation-name: ${opacity0to1};
+    animation-name: ${opacity0To1};
     animation-duration: ${(props) => (props.time ? `${props.time}s` : "3s")};
   }
 `;

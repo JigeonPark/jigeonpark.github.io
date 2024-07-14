@@ -1,12 +1,21 @@
 import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
-*,*::before, *::after{
+  *,*::before, *::after{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
   }
-  
+
+  /* html { 
+    scroll-behavior: smooth;
+  } */
+
+  :root{
+  --black: #1e1e1e;
+  --white: #F5F5F7;
+  } 
+
   body {
     font-family: "Helvetica", "Arial", sans-serif;
     line-height: 1.5;
@@ -38,4 +47,5 @@ export const GlobalStyle = createGlobalStyle`
   ::-webkit-scrollbar-track {
     display: none;
   }
-  `;
+
+`;

@@ -1,79 +1,82 @@
 import {
-  BottomToZero,
-  LeftToRight,
-  RightToLeft,
-  TopToZero,
-  opacity0to1,
+  FromRightToZero,
+  FromtLeftToZero,
+  opacity0To1,
 } from "@src/styles/Animation";
 import {
-  GolbalMainText,
-  GolbalSubTitle,
+  GolbalTextTitle,
   GolbalTitle,
   media,
+  prefersColorScheme,
 } from "@src/styles/Style";
 import styled from "styled-components";
 
-export const Home = styled.header`
+console.log(prefersColorScheme.background);
+
+export const Home = styled.div`
   display: flex;
-  align-items: start;
+  ${prefersColorScheme.oppositeBackground}
 
   :nth-child(1) {
-    animation: ${LeftToRight} 1s;
+    animation: ${FromtLeftToZero} 1s;
+    /* ${prefersColorScheme.background}
+    ${prefersColorScheme.color} */
   }
 
   :nth-child(2) {
-    animation: ${RightToLeft} 1s;
+    animation: ${FromRightToZero} 1s;
+    ${prefersColorScheme.color}
+    ${prefersColorScheme.background}
   }
-`;
-
-export const BackBoard = styled.div<{ color: String }>`
-  width: 50vw;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-
-  background-color: ${(props) =>
-    props.color === "black" ? "#1e1e1e" : "#fff"};
-
-  div {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 25px;
-  }
-
-  ${media.mobile} {
-    div {
-      gap: 20px;
-      align-items: center;
-      width: 150px;
-    }
-  }
-`;
-
-export const IntroduceTxt = styled(GolbalSubTitle)`
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0);
-  animation: ${TopToZero} 2s !important;
-  height: auto;
-  justify-content: start;
 `;
 
 export const Title = styled(GolbalTitle)`
-  animation: ${opacity0to1} 5s !important;
+  animation: ${opacity0To1} 4s !important;
+  position: absolute;
+  height: auto;
+
+  background-color: rgba(0, 0, 0, 0) !important;
 
   ${media.mobile} {
     text-align: center;
   }
 `;
 
-export const MainText = styled(GolbalMainText)`
-  color: #1e1e1e;
+export const Container = styled.div`
+  width: 50vw;
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+
+  //IntroduceText
+  :nth-child(2) {
+    position: relative;
+    top: +70px;
+
+    @media (max-width: 1240px) {
+      top: +120px;
+    }
+
+    ${media.tablet} {
+      top: +135px;
+    }
+
+    ${media.mobile} {
+      top: +90px;
+    }
+  }
+`;
+
+export const IntroduceText = styled(GolbalTextTitle)`
   max-width: 459px;
-  animation: ${BottomToZero} 2s !important;
+  animation: ${opacity0To1} 4s !important;
 
   ${media.mobile} {
+    font-size: 14px;
     font-weight: bold;
   }
 `;

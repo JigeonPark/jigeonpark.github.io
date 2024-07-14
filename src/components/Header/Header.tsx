@@ -11,7 +11,9 @@ const Header = () => {
   const headerRef = useRef<HTMLHeadElement>(null);
 
   const urlPath = location.pathname.split("/")[1];
-  const headerList = ["Home", "About", "Project", "Contact"];
+  const headerList = ["Home", "About", "Project"];
+  const [contactFlag, setContactFlag] = useState<Boolean>(false);
+  const [backgroundFlag, setBackgroundFlag] = useState<Boolean>(false);
 
   const [path, setPath] = useState<String>(
     urlPath === ""
@@ -48,37 +50,25 @@ const Header = () => {
       case headerList[2]:
         navigate(headerList[2].toLowerCase());
         break;
-
-      case headerList[3]:
-        document.body.style.overflow = "hidden";
-        isMobile
-          ? (headerRef.current!.style.height = "65px")
-          : (headerRef.current!.style.height = "115px");
-
-        return () => {
-          document.body.style.overflow = "unset";
-          document.body.style.overflowX = "hidden";
-          isMobile
-            ? (headerRef.current!.style.height = "30px")
-            : (headerRef.current!.style.height = "50px");
-        };
     }
   }, [path]);
 
   useEffect(() => {
     function handleScroll() {
       if (urlPath !== headerList[2]) {
-        if (window.scrollY < window.innerHeight && path === headerList[1]) {
+        if (window.scrollY < window.innerHeight - 1 && path === headerList[1]) {
           setScrollFlag(false);
           setPath(headerList[0]);
         } else if (
-          window.scrollY > window.innerHeight &&
+          window.scrollY > window.innerHeight - 1 &&
           path === headerList[0]
         ) {
           setScrollFlag(false);
           setPath(headerList[1]);
         }
       }
+
+      !contactFlag && setBackgroundFlag(window.scrollY > 1);
     }
 
     window.addEventListener("scroll", handleScroll);
@@ -87,14 +77,33 @@ const Header = () => {
     };
   });
 
+  useEffect(() => {
+    if (contactFlag) {
+      setBackgroundFlag(true);
+      if (isMobile) {
+        headerRef.current!.style.height = "65px";
+      } else {
+        headerRef.current!.style.height = "115px";
+      }
+    } else {
+      if (isMobile) {
+        headerRef.current!.style.height = "30px";
+      } else {
+        headerRef.current!.style.height = "50px";
+      }
+
+      window.scrollY < 2 && setBackgroundFlag(false);
+    }
+  }, [contactFlag]);
+
   return (
-    <S.Header ref={headerRef}>
+    <S.Header ref={headerRef} background={`${backgroundFlag}`}>
       <S.ItemContainer>
         {headerList.map((d: string, i: number) => {
           return (
             <S.HeaderBtn
               key={i}
-              border={`${path === d}`}
+              is_selected={`${path === d}`}
               onClick={() => {
                 setScrollFlag(true);
                 setPath(d);
@@ -105,10 +114,20 @@ const Header = () => {
             </S.HeaderBtn>
           );
         })}
+
+        <S.HeaderBtn
+          is_selected={`${contactFlag}`}
+          onClick={() => {
+            setContactFlag(!contactFlag);
+          }}
+        >
+          Contact
+        </S.HeaderBtn>
+
         <S.Border ref={borderRef} />
       </S.ItemContainer>
 
-      {path === "Contact" && (
+      {contactFlag && (
         <S.ContactInfoContainer>
           {contactInfo.map((d: contactInfoType) => {
             return (
@@ -124,6 +143,20 @@ const Header = () => {
           })}
         </S.ContactInfoContainer>
       )}
+      <button
+        onClick={() => {
+          document.body.dataset.theme = "dark-mode";
+        }}
+      >
+        dark mode
+      </button>
+      <button
+        onClick={() => {
+          document.body.dataset.theme = "light-mode";
+        }}
+      >
+        light mode
+      </button>
     </S.Header>
   );
 };
