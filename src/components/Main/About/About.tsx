@@ -1,10 +1,10 @@
 import * as S from "./About.style";
-import { useRef } from "react";
-import useIntersectionObsever from "@src/hooks/useIntersectionObsever";
+// import { useRef } from "react";
+// import useIntersectionObsever from "@src/hooks/useIntersectionObsever";
 
 const About = () => {
-  const titleRef = useRef<HTMLDivElement>(null);
-  const isTitleInViewport = useIntersectionObsever(titleRef);
+  // const titleRef = useRef<HTMLDivElement>(null);
+  // const isTitleInViewport = useIntersectionObsever(titleRef);
 
   return (
     <S.About>
