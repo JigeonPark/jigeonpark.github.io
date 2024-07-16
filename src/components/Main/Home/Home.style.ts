@@ -3,30 +3,24 @@ import {
   FromtLeftToZero,
   opacity0To1,
 } from "@src/styles/Animation";
-import {
-  GolbalTextTitle,
-  GolbalTitle,
-  media,
-  prefersColorScheme,
-} from "@src/styles/Style";
+import { GolbalTextTitle, GolbalTitle, media } from "@src/styles/Style";
 import styled from "styled-components";
 
-console.log(prefersColorScheme.background);
-
-export const Home = styled.div`
+export const Home = styled.div<{ mode: string }>`
   display: flex;
-  ${prefersColorScheme.oppositeBackground}
+  background-color: ${(props) =>
+    props.mode === "dark" ? "var(--white)" : "var(--black)"};
 
   :nth-child(1) {
     animation: ${FromtLeftToZero} 1s;
-    /* ${prefersColorScheme.background}
-    ${prefersColorScheme.color} */
+    background-color: ${(props) =>
+      props.mode === "light" ? "var(--white)" : "var(--black)"};
   }
 
   :nth-child(2) {
     animation: ${FromRightToZero} 1s;
-    ${prefersColorScheme.color}
-    ${prefersColorScheme.background}
+    background-color: ${(props) =>
+      props.mode === "light" ? "var(--white)" : "var(--black)"};
   }
 `;
 

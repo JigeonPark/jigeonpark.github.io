@@ -13,7 +13,7 @@ export const contactInfo = [
   {
     name: "Email",
     imgSrc: "images/mail.svg",
-    link: "mailto:jkj.zf.work@gmail.com",
+    link: "mailto:jnpk.zf.work@gmail.com",
   },
   {
     name: "GitHub",

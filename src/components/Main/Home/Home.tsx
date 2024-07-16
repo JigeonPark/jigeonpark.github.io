@@ -1,8 +1,11 @@
+import { useTheme } from "@src/theme/ThemeProvider";
 import * as S from "./Home.style";
 
 const Home = () => {
+  const [ThemeMode] = useTheme();
+
   return (
-    <S.Home>
+    <S.Home mode={ThemeMode}>
       <S.Container>
         <S.Title>Jigeon Park</S.Title>
       </S.Container>

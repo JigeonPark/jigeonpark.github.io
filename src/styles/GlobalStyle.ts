@@ -1,15 +1,17 @@
 import { createGlobalStyle } from "styled-components";
+import reset from "styled-reset";
 
 export const GlobalStyle = createGlobalStyle`
+  ${reset}
   *,*::before, *::after{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
   }
 
-  /* html { 
+  html { 
     scroll-behavior: smooth;
-  } */
+  }
 
   :root{
   --black: #1e1e1e;
@@ -20,6 +22,13 @@ export const GlobalStyle = createGlobalStyle`
     font-family: "Helvetica", "Arial", sans-serif;
     line-height: 1.5;
     overflow-x: hidden;
+    background-color: ${({ theme }) => theme.bgColor};
+    color: ${({ theme }) => theme.textColor};
+    transition: 1s;
+  }
+
+  a{
+    text-decoration: none;
   }
 
   h2, p {

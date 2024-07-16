@@ -11,33 +11,6 @@ export const media = {
   mobile: customMediaQuery(576),
 };
 
-//Light, dark mode
-const prefersColorSchemeForm = (lightStyles: string, darkStyles: string) => `
-  @media (prefers-color-scheme: light) {
-    ${lightStyles}
-  }
-  @media (prefers-color-scheme: dark) {
-    ${darkStyles}
-  }
-`;
-
-export const prefersColorScheme = {
-  custom: prefersColorSchemeForm,
-  background: prefersColorSchemeForm(
-    "background-color: var(--white);",
-    "background-color: var(--black);"
-  ),
-  oppositeBackground: prefersColorSchemeForm(
-    "background-color: var(--black);",
-    "background-color: var(--white);"
-  ),
-  color: prefersColorSchemeForm("color: var(--black);", "color: var(--white);"),
-  oppositeColor: prefersColorSchemeForm(
-    "color: var(--white);",
-    "color: var(--black);"
-  ),
-};
-
 //Font
 export const GolbalTitle = styled.h1`
   font-size: 64px;
@@ -102,17 +75,9 @@ export const GolbalText = styled.p`
 `;
 
 export const Line = styled.hr<{
-  vertical: String;
-  time?: String;
+  vertical: string;
+  time?: string;
 }>`
-  @media (prefers-color-scheme: light) {
-    border: 1px solid --black;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    border: 1px solid --white;
-  }
-
   width: ${(props) => (props.vertical === "true" ? "1px" : "1000px")};
   height: ${(props) => (props.vertical === "true" ? "100%" : "1px")};
 

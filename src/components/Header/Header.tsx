@@ -1,10 +1,12 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import * as S from "./Header.style";
 import { useEffect, useRef, useState } from "react";
-import { contactInfo, contactInfoType } from "./contactInfo";
 import { isMobile } from "@src/Router";
+import { useTheme } from "@src/theme/ThemeProvider";
+import { MakeContactIconList } from "@src/function/MakeContactIconList";
 
 const Header = () => {
+  const [ThemeMode] = useTheme();
   const navigate = useNavigate();
   const location = useLocation();
   const borderRef = useRef<HTMLDivElement>(null);
@@ -12,10 +14,10 @@ const Header = () => {
 
   const urlPath = location.pathname.split("/")[1];
   const headerList = ["Home", "About", "Project"];
-  const [contactFlag, setContactFlag] = useState<Boolean>(false);
-  const [backgroundFlag, setBackgroundFlag] = useState<Boolean>(false);
+  const [contactFlag, setContactFlag] = useState<boolean>(false);
+  const [backgroundFlag, setBackgroundFlag] = useState<boolean>(false);
 
-  const [path, setPath] = useState<String>(
+  const [path, setPath] = useState<string>(
     urlPath === ""
       ? headerList[0]
       : urlPath.charAt(0).toUpperCase() + urlPath.slice(1)
@@ -96,14 +98,34 @@ const Header = () => {
     }
   }, [contactFlag]);
 
+  const giveStyleToHeader = () => {
+    if (ThemeMode === "dark") {
+      return backgroundFlag
+        ? "rgba(169, 169, 169, 1)"
+        : "rgba(169, 169, 169, 0)";
+    } else {
+      return backgroundFlag
+        ? "rgba(217, 217, 217, 1)"
+        : "rgba(217, 217, 217, 0)";
+    }
+  };
+
+  const giveStyleToHeaderBtn = (isSelected: boolean) => {
+    if (ThemeMode === "dark") {
+      return isSelected ? "var(--black)" : "var(--white)";
+    } else {
+      return isSelected ? "var(--white)" : "var(--black)";
+    }
+  };
+
   return (
-    <S.Header ref={headerRef} background={`${backgroundFlag}`}>
+    <S.Header ref={headerRef} background={giveStyleToHeader()}>
       <S.ItemContainer>
         {headerList.map((d: string, i: number) => {
           return (
             <S.HeaderBtn
               key={i}
-              is_selected={`${path === d}`}
+              color={giveStyleToHeaderBtn(path === d)}
               onClick={() => {
                 setScrollFlag(true);
                 setPath(d);
@@ -116,7 +138,7 @@ const Header = () => {
         })}
 
         <S.HeaderBtn
-          is_selected={`${contactFlag}`}
+          color={giveStyleToHeaderBtn(contactFlag)}
           onClick={() => {
             setContactFlag(!contactFlag);
           }}
@@ -124,39 +146,18 @@ const Header = () => {
           Contact
         </S.HeaderBtn>
 
-        <S.Border ref={borderRef} />
+        <S.Border
+          ref={borderRef}
+          style={{
+            backgroundColor:
+              ThemeMode === "dark" ? "#d9d9d9" : "rgba(169, 169, 169, 1)",
+          }}
+        />
       </S.ItemContainer>
 
       {contactFlag && (
-        <S.ContactInfoContainer>
-          {contactInfo.map((d: contactInfoType) => {
-            return (
-              <img
-                src={d.imgSrc}
-                alt={d.name}
-                key={d.name}
-                onClick={() => {
-                  window.open(d.link, "_blank", "noopener, noreferrer");
-                }}
-              />
-            );
-          })}
-        </S.ContactInfoContainer>
+        <S.ContactIconContainer>{MakeContactIconList()}</S.ContactIconContainer>
       )}
-      <button
-        onClick={() => {
-          document.body.dataset.theme = "dark-mode";
-        }}
-      >
-        dark mode
-      </button>
-      <button
-        onClick={() => {
-          document.body.dataset.theme = "light-mode";
-        }}
-      >
-        light mode
-      </button>
     </S.Header>
   );
 };

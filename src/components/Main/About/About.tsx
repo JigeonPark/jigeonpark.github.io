@@ -6,7 +6,11 @@ const About = () => {
   const titleRef = useRef<HTMLDivElement>(null);
   const isTitleInViewport = useIntersectionObsever(titleRef);
 
-  return <S.About></S.About>;
+  return (
+    <S.About>
+      <S.Container>making</S.Container>
+    </S.About>
+  );
 };
 
 export default About;

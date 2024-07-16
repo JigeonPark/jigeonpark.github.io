@@ -3,6 +3,9 @@ import Header from "./components/Header";
 import Main from "./components/Main";
 import Project from "./components/Project";
 import styled from "styled-components";
+import ThemeToggle from "@src/theme/ThemeToggle";
+import { useTheme } from "@src/theme/ThemeProvider";
+import Footer from "./components/Footer";
 
 export const isMobile = window.innerWidth < 576;
 
@@ -12,6 +15,8 @@ const Root = styled.div`
 `;
 
 export const Router = () => {
+  const [ThemeMode, toggleTheme] = useTheme();
+
   return (
     <BrowserRouter basename={"/"}>
       <Root>
@@ -21,6 +26,8 @@ export const Router = () => {
           <Route path="/project" element={<Project />} />
           <Route path="*" element={<>404</>} />
         </Routes>
+        <Footer />
+        <ThemeToggle toggle={toggleTheme} mode={ThemeMode} />
       </Root>
     </BrowserRouter>
   );
