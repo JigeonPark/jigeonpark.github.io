@@ -18,9 +18,7 @@ const Header = () => {
   const [backgroundFlag, setBackgroundFlag] = useState<boolean>(false);
 
   const [path, setPath] = useState<string>(
-    urlPath === ""
-      ? headerList[0]
-      : urlPath.charAt(0).toUpperCase() + urlPath.slice(1)
+    urlPath === "" ? headerList[0] : urlPath.charAt(0).toUpperCase() + urlPath.slice(1)
   );
   const [scrollFlag, setScrollFlag] = useState<boolean>(true);
 
@@ -33,9 +31,7 @@ const Header = () => {
 
   useEffect(() => {
     borderRef.current!.style.transform = `translate(${
-      isMobile
-        ? headerList.indexOf(`${path}`) * 73.333333
-        : headerList.indexOf(`${path}`) * 128
+      isMobile ? headerList.indexOf(`${path}`) * 73.333333 : headerList.indexOf(`${path}`) * 128
     }px, 0px)`;
 
     switch (path) {
@@ -61,10 +57,7 @@ const Header = () => {
         if (window.scrollY < window.innerHeight - 1 && path === headerList[1]) {
           setScrollFlag(false);
           setPath(headerList[0]);
-        } else if (
-          window.scrollY > window.innerHeight - 1 &&
-          path === headerList[0]
-        ) {
+        } else if (window.scrollY > window.innerHeight - 1 && path === headerList[0]) {
           setScrollFlag(false);
           setPath(headerList[1]);
         }
@@ -103,13 +96,9 @@ const Header = () => {
 
   const giveStyleToHeader = () => {
     if (ThemeMode === "dark") {
-      return backgroundFlag
-        ? "rgba(169, 169, 169, 1)"
-        : "rgba(169, 169, 169, 0)";
+      return backgroundFlag ? "rgba(169, 169, 169, 1)" : "rgba(169, 169, 169, 0)";
     } else {
-      return backgroundFlag
-        ? "rgba(217, 217, 217, 1)"
-        : "rgba(217, 217, 217, 0)";
+      return backgroundFlag ? "rgba(217, 217, 217, 1)" : "rgba(217, 217, 217, 0)";
     }
   };
 
@@ -152,14 +141,11 @@ const Header = () => {
         <S.Border
           ref={borderRef}
           style={{
-            backgroundColor:
-              ThemeMode === "dark" ? "#d9d9d9" : "rgba(169, 169, 169, 1)",
+            backgroundColor: ThemeMode === "dark" ? "#d9d9d9" : "rgba(169, 169, 169, 1)",
           }}
         />
       </S.ItemContainer>
-      {contactFlag && (
-        <Contact contactFlag={contactFlag} setContactFlag={setContactFlag} />
-      )}
+      {contactFlag && <Contact contactFlag={contactFlag} setContactFlag={setContactFlag} />}
     </S.Header>
   );
 };
