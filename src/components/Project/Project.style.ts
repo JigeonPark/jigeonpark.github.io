@@ -1,10 +1,4 @@
-import {
-  GolbalSubTitle,
-  GolbalText,
-  GolbalTextTitle,
-  GolbalTitle,
-  media,
-} from "@src/styles/Style";
+import { GolbalTextTitle, GolbalTitle } from "@src/styles/Style";
 import styled from "styled-components";
 
 export const Project = styled.header`
