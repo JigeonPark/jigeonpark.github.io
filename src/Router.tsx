@@ -28,7 +28,7 @@ export const Router = () => {
   }, []);
 
   return (
-    <BrowserRouter basename={"/"}>
+    <BrowserRouter>
       <Root>
         <Header />
         <Routes>
